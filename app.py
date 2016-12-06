@@ -64,7 +64,7 @@ def get_tasks():
             }
             response = jsonify(result)
             response.headers.add('Access-Control-Allow-Origin', '*')
-            
+
             return response
         else:
             return unsupported_media_type()

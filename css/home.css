@@ -146,7 +146,8 @@ section {
 
 .main {
     font-size: 0;
-    width:100%; /*82.5%;*/
+    width: 100%;
+    /*82.5%;*/
     /*    padding: 2rem 0;*/
     vertical-align: top;
     display: inline-block;
@@ -271,7 +272,7 @@ table.matrix {
     margin-top: 2rem;
 }
 
-#solution-description p{
+#solution-description p {
     margin-bottom: 2rem;
 }
 
@@ -383,6 +384,19 @@ li {
     /*#3d3d29;*/
 }
 
+.btn-prime-outline {
+    border: 0.1rem solid #009933;
+    /*#3d3d29;*/
+    background-color: transparent;
+}
+
+.btn-prime-outline:focus,
+.btn-prime-outline:hover {
+    color: white;
+    background-color: #009933;
+    /*#3d3d29;*/
+}
+
 .btn-second-outline {
     border: 0.1rem solid #404040;
     /*#3d3d29;*/
@@ -391,8 +405,47 @@ li {
 
 .btn-second-outline:focus,
 .btn-second-outline:hover {
+    color: white;
     background-color: #404040;
     /*#3d3d29;*/
+}
+
+.btn-checkbox{
+    border-radius: 0;
+    padding: 1.5rem 2rem;
+    margin: 0;
+    
+}
+
+.btn-checkbox:focus,
+.btn-checkbox:hover {
+    color: black;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.checked:focus,
+.checked:hover {
+    color: white;
+    background-color: #009933;
+    box-shadow: none;
+}
+
+#wordToEncode {
+    font-size: 1.8rem;
+    font-family: 'Open Sans', sans-serif;
+    color: #009933;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #404040;
+    padding: 1.5rem 0;
+    outline: none;
+}
+
+#resendCheckBox {
+    height: 1.5rem;
+    width: 1.5rem;
+    cursor: pointer;
 }
 
 
@@ -587,17 +640,17 @@ li {
 }
 
 @media (min-width: 992px) {
-    .main{
-         width: 82.5%;
+    .main {
+        width: 82.5%;
     }
-    .aside-panel{
+    .aside-panel {
         display: inline-block;
     }
-    .aside-menu{
+    .aside-menu {
         display: block;
     }
-    
 }
+
 
 /*
  * -------------------------
@@ -612,4 +665,8 @@ li {
 .wrapped {
     background-color: beige;
     padding: 1.2rem;
+}
+
+.nonvisible {
+    display: none;
 }

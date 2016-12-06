@@ -33,33 +33,21 @@
 
                 <h4>Our works</h4>
                 <ul>
-                    <li class="selected">
+                    <li id="project-1" class="selected">
                         <div>
                             <p>Project 1</p>
                             <p class="small">Is a system Ax = b consistent?</p>
                         </div>
                     </li>
-                    <li>
+                    <li id="project-2">
                         <div>
                             <p>Project 2</p>
-                            <p class="small">See soon</p>
+                            <p class="small">Error-Correction</p>
                         </div>
                     </li>
-                    <li>
+                    <li id="project-3">
                         <div>
                             <p>Project 3</p>
-                            <p class="small">See soon</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            <p>Project 4</p>
-                            <p class="small">See soon</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            <p>Project 5</p>
                             <p class="small">See soon</p>
                         </div>
                     </li>
@@ -70,24 +58,27 @@
         <div class="main row">
             <div class="left-side col col-sm-12 col-md-6">
                 <div class="container">
-                    <div id='input-container' style="width: auto;">
-                        <div>
-                            <p>Choose size of matrix:</p>
-                            <select class="matrix-size" id="m-size">
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <div style="display: inline-block; margin-left: 1rem;"><p>x</p></div>
-                            <select class="matrix-size" id="n-size">
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div>
-                        <!--
+                    <div id="project-1-container">
+                        <div id='input-container' style="width: auto;">
+                            <div>
+                                <p>Choose size of matrix:</p>
+                                <select class="matrix-size" id="m-size">
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                                <div style="display: inline-block; margin-left: 1rem;">
+                                    <p>x</p>
+                                </div>
+                                <select class="matrix-size" id="n-size">
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <!--
                 <table id="user-matrix" class="matrix">
                     <tr>
                         <td>
@@ -119,11 +110,24 @@
                     </tr>
                 </table>
 -->
+                        </div>
+                        <div class="button-container">
+                            <div class="btn btn-prime" id="submit">Push me</div>
+                        </div>
                     </div>
-                    <div class="button-container">
-                        <div class="btn btn-prime" id="submit">Push me</div>
+                    <div id="project-2-container" class="nonvisible">
+                        <input id="wordToEncode" type="text" placeholder="Hello world!">
+                        <div style="margin-left: 2rem; display:inline-block;">
+                            <label for="resendCheckBox">
+                               <div id="resendCheckBoxBtn" class="btn btn-prime-outline btn-checkbox" >Resend</div>
+                                <input id="resendCheckBox" style="height:0; width:0;" type="checkbox" unchecked>
+                            </label>
+                        </div>
+                        <!--                        <div class="separator"></div>-->
+                        <div class="button-container">
+                            <div class="btn btn-prime" id="submit2">Send</div>
+                        </div>
                     </div>
-
                 </div>
             </div>
 
@@ -131,7 +135,7 @@
                 <div class="container">
                     <p>Solution</p>
                     <div id="solution-description">
-<!--
+                        <!--
                         <div class="matrix">
                             <div class="bracket bracket-open"></div>
                             <div class="matrix-container">
@@ -150,6 +154,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 

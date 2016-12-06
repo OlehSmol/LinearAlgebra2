@@ -1,5 +1,25 @@
 console.log("all.js is running");
 
+//
+// --------------------------------global variables ------------------------------
+//
+var selectedProjectTabId = "project-1";
+//
+// -------------------------------------------------------------------------------
+//
+
+
+function onProjectTabClicked() {
+    var id = this.id;
+    document.getElementById(selectedProjectTabId).className = "";
+    document.getElementById(id).className = "selected";
+    document.getElementById(selectedProjectTabId+"-container").className = "nonvisible";
+    document.getElementById(id + "-container").className = "";
+    selectedProjectTabId = id;
+}
+
+
+
 function readMatrixValue(id) {
     "use strict";
     var table = document.getElementById(id),
@@ -55,6 +75,16 @@ function generateMatrixTable(m, n, id) {
     document.getElementById('input-container').appendChild(table);
 }
 
+function checkMatrixSize() {
+    var m_selector = document.getElementById('m-size');
+    var n_selector = document.getElementById('n-size');
+
+    var m = m_selector.options[m_selector.selectedIndex].value;
+    var n = n_selector.options[n_selector.selectedIndex].value;
+
+    return [m, n];
+}
+
 function generateJSONmessage() {
     "use strict";
     var matrix = readMatrixValue('user-matrix'),
@@ -68,15 +98,6 @@ function generateJSONmessage() {
     });
 }
 
-function checkMatrixSize() {
-    var m_selector = document.getElementById('m-size');
-    var n_selector = document.getElementById('n-size');
-
-    var m = m_selector.options[m_selector.selectedIndex].value;
-    var n = n_selector.options[n_selector.selectedIndex].value;
-
-    return [m, n];
-}
 
 function onChangeMatrixSizeHandler() {
     var size = checkMatrixSize();
@@ -86,6 +107,18 @@ function onChangeMatrixSizeHandler() {
     generateMatrixTable(size[0], size[1], 'user-matrix');
     generateMatrixTable(size[0], 1, 'b-vector');
 }
+
+//
+// -------------------------------- Project 2 code ------------------------------
+//
+function onResendCheckBoxClick(){
+    if(document.getElementById('resendCheckBox').checked){
+        document.getElementById('resendCheckBoxBtn').className = 'btn btn-prime btn-checkbox checked';
+    }else{
+        document.getElementById('resendCheckBoxBtn').className = 'btn btn-prime-outline btn-checkbox';
+    }
+}
+
 
 //
 // --------------------------------displayResponse ------------------------------
@@ -168,6 +201,14 @@ function makeXMLrequest(method, URI, onloadHandler, onerrorHandler, message) {
 window.onload = function () {
     "use strict";
 
+    // left tab menu listener 
+    document.getElementById('project-1').onclick = onProjectTabClicked;
+    document.getElementById('project-2').onclick = onProjectTabClicked;
+    document.getElementById('project-3').onclick = onProjectTabClicked;
+    
+    // resendCheckBox listener
+    document.getElementById('resendCheckBox').onclick = onResendCheckBoxClick;
+
     // create and add two tables in main-section
     generateMatrixTable(2, 2, 'user-matrix');
     generateMatrixTable(2, 1, 'b-vector');
@@ -180,27 +221,27 @@ window.onload = function () {
 
 
     // #submit button onclick handler
-//    document.getElementById('submit').onclick = function () {
-//        this.innerHTML = "Processing...";
-//        this.disabled = true;
-//
-//        clearContent('solution-description');
-//
-//        var myJSONString = generateJSONmessage();
-//        console.log(myJSONString);
-//
-//        var onloadMethod = function (response) {
-//            document.getElementById('submit').innerHTML = "Push me again, I like it";
-//            document.getElementById('submit').disabled = false;
-//            console.log(response);
-//            displayResponse(response);
-//        };
-//
-//        var onerrorMethod = function (responseMessage) {
-//            document.getElementById('submit').innerHTML = "Error, try again";
-//            document.getElementById('submit').disabled = false;
-//            console.log(responseMessage);
-//        };
+    document.getElementById('submit').onclick = function () {
+        this.innerHTML = "Processing...";
+        this.disabled = true;
+
+        clearContent('solution-description');
+
+        var myJSONString = generateJSONmessage();
+        console.log(myJSONString);
+
+        var onloadMethod = function (response) {
+            document.getElementById('submit').innerHTML = "Push me again, I like it";
+            document.getElementById('submit').disabled = false;
+            console.log(response);
+            displayResponse(response);
+        };
+
+        var onerrorMethod = function (responseMessage) {
+            document.getElementById('submit').innerHTML = "Error, try again";
+            document.getElementById('submit').disabled = false;
+            console.log(responseMessage);
+        };
         //        makeXMLrequest('POST', 'http://127.0.0.1:5000/linearalgebra/api/v1.0/consistent', onloadMethod, onerrorMethod, myJSONString);
         makeXMLrequest('POST', 'https://mnitd.pythonanywhere.com/linearalgebra/api/v1.0/consistent', onloadMethod, onerrorMethod, myJSONString);
     };
