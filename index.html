@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Awesome site</title>
+    <link rel="stylesheet" href="css/home.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h3>B.O.O.M.</h3>
+                <p class="logo-description small">Bogdan Oleg Orest Mark</p>
+            </div>
+
+
+            <div class="navbar">
+                <ul>
+                    <li>About</li>
+                    <li>Our team</li>
+                    <li>Used technologies</li>
+                    <li>API</li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="aside-panel">
+            <div id="aside-menu" class="aside-menu">
+
+                <h4>Our works</h4>
+                <ul>
+                    <li class="selected">
+                        <div>
+                            <p>Project 1</p>
+                            <p class="small">Is a system Ax = b consistent?</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <p>Project 2</p>
+                            <p class="small">See soon</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <p>Project 3</p>
+                            <p class="small">See soon</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <p>Project 4</p>
+                            <p class="small">See soon</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <p>Project 5</p>
+                            <p class="small">See soon</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main row">
+            <div class="left-side col col-sm-12 col-md-6">
+                <div class="container">
+                    <div id='input-container' style="width: auto;">
+                        <div>
+                            <p>Choose size of matrix:</p>
+                            <select class="matrix-size" id="m-size">
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <div style="display: inline-block; margin-left: 1rem;"><p>x</p></div>
+                            <select class="matrix-size" id="n-size">
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <!--
+                <table id="user-matrix" class="matrix">
+                    <tr>
+                        <td>
+                            <input type="text" placeholder="1">
+                        </td>
+                        <td>
+                            <input type="text" placeholder="1">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" placeholder="1">
+                        </td>
+                        <td>
+                            <input type="text" placeholder="1">
+                        </td>
+                    </tr>
+                </table>
+                 <table id="b-vector" class="matrix">
+                    <tr>
+                        <td>
+                            <input type="text" placeholder="1">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" placeholder="1">
+                        </td>
+                    </tr>
+                </table>
+-->
+                    </div>
+                    <div class="button-container">
+                        <div class="btn btn-prime" id="submit">Push me</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="right-side col col-sm-12 col-md-6">
+                <div class="container">
+                    <p>Solution</p>
+                    <div id="solution-description">
+<!--
+                        <div class="matrix">
+                            <div class="bracket bracket-open"></div>
+                            <div class="matrix-container">
+                                <div class="matrix-row">
+                                    <div class="matrix-column">1</div>
+                                    <div class="matrix-column">2</div>
+                                </div>
+                                <div class="matrix-row">
+                                    <div class="matrix-column">1</div>
+                                    <div class="matrix-column">42</div>
+                                </div>
+                            </div>
+                            <div class="bracket bracket-close"></div>
+                        </div>
+-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/all.js"></script>
+</body>
+
+</html>
