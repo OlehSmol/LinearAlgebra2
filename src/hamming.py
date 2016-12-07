@@ -48,8 +48,8 @@ class Hamming:
         self.data = self.data.reshape((self.data.size // 4, 4))
         self.resend = resend
         self.iter = 0
-        self.errors_count = [0, 0, 0] # save amounts of words with 0, 1, 2 errors
-        self.resends_count = 0 #save amounts of resends
+        self.errors_count = [0, 0, 0]  # save amounts of words with 0, 1, 2 errors
+        self.resends_count = 0  # save amounts of resends
 
     def get_all(self):
         """
@@ -71,9 +71,9 @@ class Hamming:
             word = self.data[self.iter].transpose()
             code = Hamming.decryption(word)
             noise_code = Hamming.noise(code)
-            corrected_code, result = Hamming.correction(noise_code)
-            self.errors_count[result] += 1
-            while self.resend and result == 2:
+            corrected_code, errors = Hamming.correction(noise_code)
+            self.errors_count[errors] += 1
+            while self.resend and errors == 2:
                 noise_code = Hamming.noise(code)
                 corrected_code, result = Hamming.correction(noise_code)
                 self.resends_count += 1
@@ -89,7 +89,7 @@ class Hamming:
                 "zero error": self.errors_count[0],
                 "one error": self.errors_count[1],
                 "two error": self.errors_count[2],
-                "resends": self.resend and self.resends_count,
+                "resends": self.resend and self.resends_count
                 }
 
     def decryption(word):
