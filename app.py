@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request, Response
 # from matrix import Matrix
-# import numpy as np
+
+from src.hamming import Hamming
+
 app = Flask(__name__)
 
 
@@ -56,13 +58,19 @@ def get_tasks():
         if request.headers['Content-Type'] == 'application/json':
             json = request.json
             print(json)
+
             #---------------------------------------
             phrase = json['phrase']
             resend = json['resend']
             #TODO
             #---------------------------------------
+
+            code = Hamming(json.message, json.resend)
+
+
             result = {
-                'something': 69
+                'result': code.get_all(),
+                'statistic': code.get_statistic()
             }
             response = jsonify(result)
             response.headers.add('Access-Control-Allow-Origin', '*')
