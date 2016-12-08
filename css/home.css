@@ -447,6 +447,19 @@ li {
     width: 1.5rem;
     cursor: pointer;
 }
+.statistic-table{
+    font-size: 1.8rem;
+    border-collapse: collapse;
+    border: 1px solid black;
+    margin: 0 auto;
+}
+.statistic-table th, .statistic-table td{
+/*    border-collapse: collapse;*/
+    height: 3rem;
+    min-width:  15rem;
+    border: 1px solid black;
+    padding: 
+}
 
 
 /*

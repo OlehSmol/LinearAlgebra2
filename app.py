@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, Response
 # from matrix import Matrix
-import numpy as np
+# import numpy as np
 app = Flask(__name__)
 
 
@@ -57,6 +57,8 @@ def get_tasks():
             json = request.json
             print(json)
             #---------------------------------------
+            phrase = json['phrase']
+            resend = json['resend']
             #TODO
             #---------------------------------------
             result = {

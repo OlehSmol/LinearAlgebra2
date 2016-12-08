@@ -8,12 +8,18 @@ var selectedProjectTabId = "project-1";
 // -------------------------------------------------------------------------------
 //
 
+function clearContent(id) {
+    "use strict";
+    document.getElementById(id).innerHTML = '';
+}
 
 function onProjectTabClicked() {
+    "use strict";
+    clearContent('solution-description');
     var id = this.id;
     document.getElementById(selectedProjectTabId).className = "";
     document.getElementById(id).className = "selected";
-    document.getElementById(selectedProjectTabId+"-container").className = "nonvisible";
+    document.getElementById(selectedProjectTabId + "-container").className = "nonvisible";
     document.getElementById(id + "-container").className = "";
     selectedProjectTabId = id;
 }
@@ -49,11 +55,6 @@ function removeMatrix(id) {
     document.getElementById('input-container').removeChild(document.getElementById(id));
 }
 
-function clearContent(id) {
-    "use strict";
-    document.getElementById(id).innerHTML = '';
-}
-
 function generateMatrixTable(m, n, id) {
     "use strict";
     var table = document.createElement('table');
@@ -85,7 +86,7 @@ function checkMatrixSize() {
     return [m, n];
 }
 
-function generateJSONmessage() {
+function generateJSONmessageForProject1() {
     "use strict";
     var matrix = readMatrixValue('user-matrix'),
         bVector = readMatrixValue('b-vector');
@@ -111,12 +112,29 @@ function onChangeMatrixSizeHandler() {
 //
 // -------------------------------- Project 2 code ------------------------------
 //
-function onResendCheckBoxClick(){
-    if(document.getElementById('resendCheckBox').checked){
+function onResendCheckBoxClick() {
+    "use strict";
+    if (document.getElementById('resendCheckBox').checked) {
         document.getElementById('resendCheckBoxBtn').className = 'btn btn-prime btn-checkbox checked';
-    }else{
+    } else {
         document.getElementById('resendCheckBoxBtn').className = 'btn btn-prime-outline btn-checkbox';
     }
+}
+
+function generateJSONmessageForProject2() {
+    "use strict";
+    var message = {},
+        val = document.getElementById('wordToEncode').value;
+
+    if (val === "") {
+        val = document.getElementById('wordToEncode').placeholder;
+    }
+
+    message['phrase'] = val
+    message['resend'] = document.getElementById('resendCheckBox').checked;
+
+
+    return JSON.stringify(message);
 }
 
 
@@ -144,7 +162,7 @@ function createResponseMatrix(m) {
     return matrix;
 }
 
-function displayResponse(response) {
+function displayResponseForProject1(response) {
     "use strict";
     var fillWord = "inconsistent";
     response = JSON.parse(response);
@@ -172,7 +190,23 @@ function displayResponse(response) {
             desc.appendChild(eqSign);
         }
     }
+}
 
+function displayResponseForProject2(response) {
+    "use strict";
+    var table = document.createElement('table');
+    table.className = "statistic-table";
+    for (var i = 0; i < 5; i++) {
+        var row = document.createElement('tr'),
+            td1 = document.createElement('td'),
+            td2 = document.createElement('td');
+        td1.innerHTML = i;
+        td2.innerHTML = "d";
+        row.appendChild(td1);
+        row.appendChild(td2);
+        table.appendChild(row);
+    }
+    document.getElementById('solution-description').appendChild(table);
 }
 
 //
@@ -204,8 +238,8 @@ window.onload = function () {
     // left tab menu listener 
     document.getElementById('project-1').onclick = onProjectTabClicked;
     document.getElementById('project-2').onclick = onProjectTabClicked;
-    document.getElementById('project-3').onclick = onProjectTabClicked;
-    
+    //    document.getElementById('project-3').onclick = onProjectTabClicked;
+
     // resendCheckBox listener
     document.getElementById('resendCheckBox').onclick = onResendCheckBoxClick;
 
@@ -227,14 +261,14 @@ window.onload = function () {
 
         clearContent('solution-description');
 
-        var myJSONString = generateJSONmessage();
+        var myJSONString = generateJSONmessageForProject1();
         console.log(myJSONString);
 
         var onloadMethod = function (response) {
             document.getElementById('submit').innerHTML = "Push me again, I like it";
             document.getElementById('submit').disabled = false;
             console.log(response);
-            displayResponse(response);
+            displayResponseForProject1(response);
         };
 
         var onerrorMethod = function (responseMessage) {
@@ -244,6 +278,32 @@ window.onload = function () {
         };
         //        makeXMLrequest('POST', 'http://127.0.0.1:5000/linearalgebra/api/v1.0/consistent', onloadMethod, onerrorMethod, myJSONString);
         makeXMLrequest('POST', 'https://mnitd.pythonanywhere.com/linearalgebra/api/v1.0/consistent', onloadMethod, onerrorMethod, myJSONString);
+    };
+
+    // #submit2 button onclick handler
+    document.getElementById('submit2').onclick = function () {
+        this.innerHTML = "Processing...";
+        this.disabled = true;
+
+        clearContent('solution-description');
+
+        var myJSONString = generateJSONmessageForProject2();
+        console.log(myJSONString);
+
+        var onloadMethod = function (response) {
+            document.getElementById('submit2').innerHTML = "Send";
+            document.getElementById('submit2').disabled = false;
+            console.log(response);
+            displayResponseForProject2(response);
+        };
+
+        var onerrorMethod = function (responseMessage) {
+            document.getElementById('submit2').innerHTML = "Error, try again";
+            document.getElementById('submit2').disabled = false;
+            console.log(responseMessage);
+        };
+        makeXMLrequest('POST', 'http://127.0.0.1:5000/linearalgebra/api/v1.0/error-correction', onloadMethod, onerrorMethod, myJSONString);
+        //        makeXMLrequest('POST', 'https://mnitd.pythonanywhere.com/linearalgebra/api/v1.0/error-correction', onloadMethod, onerrorMethod, myJSONString);
     };
 };
 
