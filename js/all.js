@@ -208,6 +208,12 @@ function displayResponseForProject2(response) {
         table.appendChild(row);
     }
     document.getElementById('solution-description').appendChild(table);
+    
+    for(var i = 0; i < response['result'].length; i++){
+        var p = document.createElement('p');
+        p.innerHTML = response['result'][i];
+        document.getElementById('solution-description').appendChild(p);
+    }
 }
 
 //
