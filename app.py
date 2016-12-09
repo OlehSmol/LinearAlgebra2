@@ -60,13 +60,7 @@ def get_tasks():
             json = request.json
             print(json)
 
-            #---------------------------------------
-            phrase = json['phrase']
-            resend = json['resend']
-            #---------------------------------------
-
             code = Hamming(json['phrase'], json['resend'])
-
 
             result = {
                 'result': code.get_all(),
