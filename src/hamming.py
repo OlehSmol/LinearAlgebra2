@@ -1,7 +1,5 @@
 import numpy as np
 from random import randint
-import json
-
 class Hamming:
     _G = np.array([
         [1, 0, 1, 1],
