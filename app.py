@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, Response
 # from matrix import Matrix
 
 from src.hamming import Hamming
+import json
 
 app = Flask(__name__)
 

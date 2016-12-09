@@ -1,5 +1,6 @@
 import numpy as np
 from random import randint
+import json
 
 class Hamming:
     _G = np.array([
@@ -44,6 +45,9 @@ class Hamming:
                 send: flag for resending word in case of two errors
         Get data and convert it to (nx4) matrix
         """
+        data = [int(i) for i in list(data)]
+        if len(data)%4 != 0:
+            data += [0]*(4-len(data)%4)
         self.data = np.array(data)
         self.data = self.data.reshape((self.data.size // 4, 4))
         self.resend = resend
@@ -79,7 +83,8 @@ class Hamming:
                 self.resends_count += 1
             word = Hamming.recover(corrected_code)
             self.iter += 1
-            return (word.transpose(), result)
+            word = [str(i) for i in word.transpose().tolist()]
+            return (''.join(word), errors)
 
     def get_statistic(self):
         """
@@ -92,6 +97,7 @@ class Hamming:
                 "resends": self.resend and self.resends_count
                 }
 
+    @staticmethod
     def decryption(word):
         """
         :param word: (1x4)
@@ -102,6 +108,7 @@ class Hamming:
         code = np.dot(Hamming._C, code) % 2  # multiply code and control sum  matrix (1x8)(8x8) = (1x8)
         return code
 
+    @staticmethod
     def noise(code):
         """
         :param code: (1x8)
@@ -114,6 +121,7 @@ class Hamming:
 
         return code % 2
 
+    @staticmethod
     def correction(code):
         """
         :param code: (1x8)
@@ -135,6 +143,7 @@ class Hamming:
             else:
                 return (code, 2)
 
+    @staticmethod
     def recover(code):
         """
         :param code: (1x8) code after correction
