@@ -52,6 +52,7 @@ class Hamming:
         self.iter = 0
         self.errors_count = [0, 0, 0]  # save amounts of words with 0, 1, 2 errors
         self.resends_count = 0  # save amounts of resends
+        self.words = list()
 
     def get_all(self):
         """
@@ -60,10 +61,11 @@ class Hamming:
         self.iter = 0
         self.errors_count = [0, 0, 0]
         self.resends_count = 0
-        words = list()
+        self.words = list()
+        result = ''
         while self.iter < len(self.data):
-            words.append(self.get_next())
-        return words
+            result += self.get_next()
+        return result
 
     def get_next(self):
         """
@@ -77,12 +79,13 @@ class Hamming:
             self.errors_count[errors] += 1
             while self.resend and errors == 2:
                 noise_code = Hamming.noise(code)
-                corrected_code, result = Hamming.correction(noise_code)
+                corrected_code, errors = Hamming.correction(noise_code)
                 self.resends_count += 1
             word = Hamming.recover(corrected_code)
             self.iter += 1
             word = [str(i) for i in word.transpose().tolist()]
-            return (''.join(word), errors)
+            self.words.append((''.join(word), errors))
+            return ''.join(word)
 
     def get_statistic(self):
         """
@@ -113,8 +116,9 @@ class Hamming:
         :return code: (1x8)
         Get Hamming code and distorts in 0, 1 or 2 bits
         """
+        code = np.copy(code)
         code[randint(0, 7)] += 1  # add error to random bit
-        if randint(0, 2) != 0:
+        if randint(0, 1) != 0:
             code[randint(0, 7)] += 1  # add error to random bit
 
         return code % 2
@@ -129,6 +133,7 @@ class Hamming:
         If code have one error return corrected code with flag - 1
         If code have two error return this code with flag - 2
         """
+        code = np.copy(code)
         error = np.dot(Hamming._H, code) % 2  # get error vector by multiplying checker matrix with code
         if error[0] == 1:  # if control sum equal to 1 we have only one error and we can correct it
             position = np.dot(error, np.array([0, 4, 2, 1]))  # find position of error bit
@@ -147,4 +152,17 @@ class Hamming:
         :param code: (1x8) code after correction
         :return word: (1x8) recover word
         """
+        code = np.copy(code)
         return np.dot(Hamming._R, code.transpose()).transpose()
+
+class Converter:
+    @staticmethod
+    def utf8_to_binary(data):
+        return ''.join(['0' + format(ord(l), 'b') for l in data])
+
+    @staticmethod
+    def binary_to_utf8(data):
+        return ''.join([chr(int(data[8*i:8*(i+1)], 2)) for i in range(len(data)//8)])
+
+#c = Hamming('011000010110001001100011', resend=True)
+#print(c.get_all())

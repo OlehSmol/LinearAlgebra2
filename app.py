@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, Response
 # from matrix import Matrix
 
-from src.hamming import Hamming
+from src.hamming import Hamming, Converter
 import json
 
 app = Flask(__name__)
@@ -65,11 +65,17 @@ def get_tasks():
             resend = json['resend']
             #---------------------------------------
 
-            code = Hamming(json['phrase'], json['resend'])
-
-
+            binary = Converter.utf8_to_binary(json['phrase'])
+            print(binary)
+            code = Hamming(binary, json['resend'])
+            print(code)
+            result = code.get_all()
+            print(result)
+            print(Converter.binary_to_utf8(result))
+            print(code.words)
             result = {
-                'result': code.get_all(),
+                'result': Converter.binary_to_utf8(result),
+                'binary': binary,
                 'statistic': code.get_statistic()
             }
             response = jsonify(result)
