@@ -451,14 +451,13 @@ li {
     font-size: 1.8rem;
     border-collapse: collapse;
     border: 1px solid black;
-    margin: 0 auto;
+    margin: 0 auto 2rem auto;
 }
 .statistic-table th, .statistic-table td{
 /*    border-collapse: collapse;*/
     height: 3rem;
     min-width:  15rem;
     border: 1px solid black;
-    padding: 
 }
 
 

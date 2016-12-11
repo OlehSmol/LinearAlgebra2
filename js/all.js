@@ -194,19 +194,26 @@ function displayResponseForProject1(response) {
 
 function displayResponseForProject2(response) {
     "use strict";
+    response = JSON.parse(response);
     var table = document.createElement('table');
     table.className = "statistic-table";
-    for (var i = 0; i < 5; i++) {
+    for (var key in response['statistic']) {
         var row = document.createElement('tr'),
             td1 = document.createElement('td'),
             td2 = document.createElement('td');
-        td1.innerHTML = i;
-        td2.innerHTML = "d";
+        td1.innerHTML = key;
+        td2.innerHTML = response['statistic'][key];
         row.appendChild(td1);
         row.appendChild(td2);
         table.appendChild(row);
     }
     document.getElementById('solution-description').appendChild(table);
+    
+    for(var i = 0; i < response['result'].length; i++){
+        var p = document.createElement('p');
+        p.innerHTML = response['result'][i];
+        document.getElementById('solution-description').appendChild(p);
+    }
 }
 
 //
