@@ -209,11 +209,11 @@ function displayResponseForProject2(response) {
     }
     document.getElementById('solution-description').appendChild(table);
     
+    var p = document.createElement('p');
     for(var i = 0; i < response['result'].length; i++){
-        var p = document.createElement('p');
-        p.innerHTML = response['result'][i];
-        document.getElementById('solution-description').appendChild(p);
+        p.innerHTML += response['result'][i];      
     }
+    document.getElementById('solution-description').appendChild(p);
 }
 
 //
