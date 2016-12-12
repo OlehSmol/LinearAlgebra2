@@ -117,8 +117,9 @@ class Hamming:
         Get Hamming code and distorts in 0, 1 or 2 bits
         """
         code = np.copy(code)
-        code[randint(0, 7)] += 1  # add error to random bit
-        if randint(0, 1) != 0:
+        if randint(0, 2) == 0:
+            code[randint(0, 7)] += 1  # add error to random bit
+        if randint(0, 2) == 0:
             code[randint(0, 7)] += 1  # add error to random bit
 
         return code % 2
@@ -163,6 +164,3 @@ class Converter:
     @staticmethod
     def binary_to_utf8(data):
         return ''.join([chr(int(data[8*i:8*(i+1)], 2)) for i in range(len(data)//8)])
-
-#c = Hamming('011000010110001001100011', resend=True)
-#print(c.get_all())

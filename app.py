@@ -60,19 +60,9 @@ def get_tasks():
             json = request.json
             print(json)
 
-            #---------------------------------------
-            phrase = json['phrase']
-            resend = json['resend']
-            #---------------------------------------
-
             binary = Converter.utf8_to_binary(json['phrase'])
-            print(binary)
             code = Hamming(binary, json['resend'])
-            print(code)
             result = code.get_all()
-            print(result)
-            print(Converter.binary_to_utf8(result))
-            print(code.words)
             result = {
                 'result': Converter.binary_to_utf8(result),
                 'binary': binary,
