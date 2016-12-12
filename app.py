@@ -2,7 +2,6 @@ from flask import Flask, jsonify, request, Response
 # from matrix import Matrix
 
 from src.hamming import Hamming, Converter
-import json
 
 app = Flask(__name__)
 
@@ -19,32 +18,6 @@ def unsupported_media_type(error=None):
 
     return response
 
-# @app.route('/linearalgebra/api/v1.0/consistent', methods=['POST', 'OPTIONS'])
-# def get_tasks():
-#     if request.method == 'OPTIONS':
-#         response = Response('', status=200, mimetype='application/json')
-#         response.headers.add('Access-Control-Allow-Origin', '*')
-#         response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-#         response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-#         return response
-#
-#     else:
-#         if request.headers['Content-Type'] == 'application/json':
-#             json = request.json
-#             print(json)
-#             matrix = json['matrix']
-#             new = Matrix(matrix)
-#             result = {
-#                 'consistency': new.is_consistent(),
-#                 'steps': new.get_steps()
-#             }
-#             response = jsonify(result)
-#             response.headers.add('Access-Control-Allow-Origin', '*')
-#             # response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-#             # response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-#             return response
-#         else:
-#             return unsupported_media_type()
 
 @app.route('/linearalgebra/api/v1.0/error-correction', methods=['POST', 'OPTIONS'])
 def get_tasks():
@@ -74,6 +47,7 @@ def get_tasks():
             return response
         else:
             return unsupported_media_type()
+
 
 if __name__ == "__main__":
     app.run()

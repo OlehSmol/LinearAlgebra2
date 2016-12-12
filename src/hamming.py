@@ -1,5 +1,7 @@
 import numpy as np
 from random import randint
+
+
 class Hamming:
     _G = np.array([
         [1, 0, 1, 1],
@@ -37,15 +39,15 @@ class Hamming:
         [0, 0, 1, 0, 0, 0, 0, 0],
     ])  # recover matrix (4x8)
 
-    def __init__(self, data , resend=False):
+    def __init__(self, data, resend=False):
         """
         :param: data: list of bit (len(list)%4 == 0)
                 send: flag for resending word in case of two errors
         Get data and convert it to (nx4) matrix
         """
         data = [int(i) for i in list(data)]
-        if len(data)%4 != 0:
-            data += [0]*(4-len(data)%4)
+        if len(data) % 4 != 0:
+            data += [0] * (4 - len(data) % 4)
         self.data = np.array(data)
         self.data = self.data.reshape((self.data.size // 4, 4))
         self.resend = resend
@@ -140,12 +142,12 @@ class Hamming:
             position = np.dot(error, np.array([0, 4, 2, 1]))  # find position of error bit
             if position > 0:  # if position == 0 error was in control sum
                 code[position - 1] = (code[position - 1] + 1) % 2
-            return (code, 1)
+            return code, 1
         else:
             if np.dot(error, np.array([1, 1, 1, 1])) == 0:  # check errors of code
-                return (code, 0)
+                return code, 0
             else:
-                return (code, 2)
+                return code, 2
 
     @staticmethod
     def recover(code):
@@ -156,6 +158,7 @@ class Hamming:
         code = np.copy(code)
         return np.dot(Hamming._R, code.transpose()).transpose()
 
+
 class Converter:
     @staticmethod
     def utf8_to_binary(data):
@@ -163,4 +166,4 @@ class Converter:
 
     @staticmethod
     def binary_to_utf8(data):
-        return ''.join([chr(int(data[8*i:8*(i+1)], 2)) for i in range(len(data)//8)])
+        return ''.join([chr(int(data[8 * i:8 * (i + 1)], 2)) for i in range(len(data) // 8)])
