@@ -162,7 +162,8 @@ class Hamming:
 class Converter:
     @staticmethod
     def utf8_to_binary(data):
-        return ''.join(['0' + format(ord(l), 'b') for l in data])
+        binary = [format(ord(l), 'b') for l in data]
+        return ''.join([(8-len(b))*"0"+b for b in binary])
 
     @staticmethod
     def binary_to_utf8(data):
