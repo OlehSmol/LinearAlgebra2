@@ -52,9 +52,9 @@ class Hamming:
         self.data = self.data.reshape((self.data.size // 4, 4))
         self.resend = resend
         self.iter = 0
-        self.errors_count = [0, 0, 0]  # save amounts of words with 0, 1, 2 errors
-        self.resends_count = 0  # save amounts of resends
-        self.words = list()
+        self.errors_count = [0, 0, 0]  # amounts of words with 0, 1, 2 errors
+        self.resends_count = 0  # amounts of resends
+        self.errors_list = list()  # list of errors amount in corresponding words
 
     def get_all(self):
         """
@@ -68,6 +68,12 @@ class Hamming:
         while self.iter < len(self.data):
             result += self.get_next()
         return result
+
+    def get_errors_list(self):
+        """
+        :return: list of errors amount in corresponding words
+        """
+        return self.errors_list
 
     def get_next(self):
         """
@@ -86,7 +92,7 @@ class Hamming:
             word = Hamming.recover(corrected_code)
             self.iter += 1
             word = [str(i) for i in word.transpose().tolist()]
-            self.words.append((''.join(word), errors))
+            self.errors_list.append(errors)
             return ''.join(word)
 
     def get_statistic(self):
@@ -99,6 +105,8 @@ class Hamming:
                 "two error": self.errors_count[2],
                 "resends": self.resend and self.resends_count
                 }
+
+
 
     @staticmethod
     def decryption(word):
@@ -158,13 +166,30 @@ class Hamming:
         code = np.copy(code)
         return np.dot(Hamming._R, code.transpose()).transpose()
 
+    @staticmethod
+    def errors_list_for_utf8(errors_list):
+        """
+        find error of character (maximum of errors in two words)
+        :param errors_list: list of errors amount in corresponding words
+        :return: list of errors amount in corresponding characters
+        """
+        return [max(errors_list[i], errors_list[i+1]) for i in range(0, len(errors_list), 2)]
+
 
 class Converter:
     @staticmethod
     def utf8_to_binary(data):
+        """
+        :param data: utf8 string
+        :return: binary string
+        """
         binary = [format(ord(l), 'b') for l in data]
         return ''.join([(8-len(b))*"0"+b for b in binary])
 
     @staticmethod
     def binary_to_utf8(data):
+        """
+        :param data: binary string
+        :return: utf8 string
+        """
         return ''.join([chr(int(data[8 * i:8 * (i + 1)], 2)) for i in range(len(data) // 8)])
