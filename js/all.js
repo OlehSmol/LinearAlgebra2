@@ -195,6 +195,29 @@ function displayResponseForProject1(response) {
 function displayResponseForProject2(response) {
     "use strict";
     response = JSON.parse(response);
+
+    var p = document.createElement('p');
+//    p.innerHTML = "Result: "
+//    document.getElementById('solution-description').appendChild(p);
+//
+//    p = document.createElement('p');
+    for (var i = 0; i < response['result'].length; i++) {
+        p.innerHTML += response['result'][i];
+    }
+    document.getElementById('solution-description').appendChild(p);
+
+//    p = document.createElement('p');
+//    p.innerHTML = "Binary representation:"
+//    document.getElementById('solution-description').appendChild(p);
+
+    var div = document.createElement('div');
+    div.className = "binary-container";
+    p = document.createElement('p');
+    p.innerHTML = response['binary'];
+
+    div.appendChild(p);
+    document.getElementById('solution-description').appendChild(div);
+
     var table = document.createElement('table');
     table.className = "statistic-table";
     for (var key in response['statistic']) {
@@ -209,11 +232,7 @@ function displayResponseForProject2(response) {
     }
     document.getElementById('solution-description').appendChild(table);
 
-    var p = document.createElement('p');
-    for (var i = 0; i < response['result'].length; i++) {
-        p.innerHTML += response['result'][i];
-    }
-    document.getElementById('solution-description').appendChild(p);
+
 }
 
 //
