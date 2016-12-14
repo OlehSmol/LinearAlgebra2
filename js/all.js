@@ -202,7 +202,24 @@ function displayResponseForProject2(response) {
 //
 //    p = document.createElement('p');
     for (var i = 0; i < response['result'].length; i++) {
-        p.innerHTML += response['result'][i];
+        var span = document.createElement('span');
+        switch(response['result'][i][1]){
+            case 0:
+                span.style.color = '#009933';
+                break;
+            case 1: 
+                 span.style.color = '#ffcc00';
+                break;
+            case 2:
+                 span.style.color = 'red';
+                break;
+                
+            default:
+                break;
+                
+        }
+        span.innerHTML = response['result'][i][0];
+        p.appendChild(span);
     }
     document.getElementById('solution-description').appendChild(p);
 
@@ -328,8 +345,8 @@ window.onload = function () {
             document.getElementById('submit2').disabled = false;
             console.log(responseMessage);
         };
-        //        makeXMLrequest('POST', 'http://127.0.0.1:5000/linearalgebra/api/v1.0/error-correction', onloadMethod, onerrorMethod, myJSONString);
-        makeXMLrequest('POST', 'https://mnitd.pythonanywhere.com/linearalgebra/api/v1.0/error-correction', onloadMethod, onerrorMethod, myJSONString);
+                makeXMLrequest('POST', 'http://127.0.0.1:5000/linearalgebra/api/v1.0/error-correction', onloadMethod, onerrorMethod, myJSONString);
+//        makeXMLrequest('POST', 'https://mnitd.pythonanywhere.com/linearalgebra/api/v1.0/error-correction', onloadMethod, onerrorMethod, myJSONString);
     };
 };
 
