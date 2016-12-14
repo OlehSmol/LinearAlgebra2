@@ -13,6 +13,17 @@ function clearContent(id) {
     document.getElementById(id).innerHTML = '';
 }
 
+function onHumburgerMenuCLick() {
+    "use strict";
+    var menu = document.getElementById('menu');
+    if (menu.className === "menu") {
+        menu.className += " menu-active";
+    } else {
+        menu.className = "menu";
+    }
+}
+
+
 function onProjectTabClicked() {
     "use strict";
     clearContent('solution-description');
@@ -23,8 +34,6 @@ function onProjectTabClicked() {
     document.getElementById(id + "-container").className = "";
     selectedProjectTabId = id;
 }
-
-
 
 function readMatrixValue(id) {
     "use strict";
@@ -197,35 +206,35 @@ function displayResponseForProject2(response) {
     response = JSON.parse(response);
 
     var p = document.createElement('p');
-//    p.innerHTML = "Result: "
-//    document.getElementById('solution-description').appendChild(p);
-//
-//    p = document.createElement('p');
+    //    p.innerHTML = "Result: "
+    //    document.getElementById('solution-description').appendChild(p);
+    //
+    //    p = document.createElement('p');
     for (var i = 0; i < response['result'].length; i++) {
         var span = document.createElement('span');
-        switch(response['result'][i][1]){
-            case 0:
-                span.style.color = '#009933';
-                break;
-            case 1: 
-                 span.style.color = '#ffcc00';
-                break;
-            case 2:
-                 span.style.color = 'red';
-                break;
-                
-            default:
-                break;
-                
+        switch (response['result'][i][1]) {
+        case 0:
+            span.style.color = '#009933';
+            break;
+        case 1:
+            span.style.color = '#ffcc00';
+            break;
+        case 2:
+            span.style.color = 'red';
+            break;
+
+        default:
+            break;
+
         }
         span.innerHTML = response['result'][i][0];
         p.appendChild(span);
     }
     document.getElementById('solution-description').appendChild(p);
 
-//    p = document.createElement('p');
-//    p.innerHTML = "Binary representation:"
-//    document.getElementById('solution-description').appendChild(p);
+    //    p = document.createElement('p');
+    //    p.innerHTML = "Binary representation:"
+    //    document.getElementById('solution-description').appendChild(p);
 
     var div = document.createElement('div');
     div.className = "binary-container";
@@ -282,6 +291,9 @@ window.onload = function () {
     document.getElementById('project-1').onclick = onProjectTabClicked;
     document.getElementById('project-2').onclick = onProjectTabClicked;
     //    document.getElementById('project-3').onclick = onProjectTabClicked;
+
+    // humburger menu for mobile vertion
+    document.getElementById('humburgerMenu').onclick = onHumburgerMenuCLick;
 
     // resendCheckBox listener
     document.getElementById('resendCheckBox').onclick = onResendCheckBoxClick;
@@ -345,8 +357,8 @@ window.onload = function () {
             document.getElementById('submit2').disabled = false;
             console.log(responseMessage);
         };
-                makeXMLrequest('POST', 'http://127.0.0.1:5000/linearalgebra/api/v1.0/error-correction', onloadMethod, onerrorMethod, myJSONString);
-//        makeXMLrequest('POST', 'https://mnitd.pythonanywhere.com/linearalgebra/api/v1.0/error-correction', onloadMethod, onerrorMethod, myJSONString);
+        //                makeXMLrequest('POST', 'http://127.0.0.1:5000/linearalgebra/api/v1.0/error-correction', onloadMethod, onerrorMethod, myJSONString);
+        makeXMLrequest('POST', 'https://mnitd.pythonanywhere.com/linearalgebra/api/v1.0/error-correction', onloadMethod, onerrorMethod, myJSONString);
     };
 };
 

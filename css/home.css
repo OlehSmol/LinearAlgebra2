@@ -1,5 +1,5 @@
 html {
-    font-size: 10px;
+    font-size: 22px;
 }
 
 body {
@@ -18,10 +18,7 @@ header {
 }
 
 header .container {
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 10rem;
-    padding-right: 10rem;
+    padding: 0 5rem 0 5rem;
 }
 
 .logo,
@@ -53,6 +50,34 @@ header .container {
     float: right;
 }
 
+.humburger-menu {
+    position: absolute;
+    top: 3rem;
+    right: 5rem;
+    cursor: pointer;
+    z-index: 2;
+    display: block;
+}
+
+.stripe {
+    height: 0.4rem;
+    width: 3rem;
+    background-color: white;
+    margin: 0.5rem;
+}
+
+.menu {
+    background-color: #404040;
+    position: absolute;
+    top: 3rem;
+    right: 5rem;
+    display: none;
+}
+
+.menu-active {
+    display: block;
+}
+
 ul {
     padding: 0;
     margin: 0;
@@ -61,7 +86,7 @@ ul {
 .navbar li {
     padding: 0.5rem 1rem;
     margin: 0 1rem;
-    display: inline-block;
+    display: block;
     list-style-type: none;
     cursor: pointer;
 }
@@ -410,11 +435,10 @@ li {
     /*#3d3d29;*/
 }
 
-.btn-checkbox{
+.btn-checkbox {
     border-radius: 0;
     padding: 1.5rem 2rem;
     margin: 0;
-    
 }
 
 .btn-checkbox:focus,
@@ -447,24 +471,28 @@ li {
     width: 1.5rem;
     cursor: pointer;
 }
-.statistic-table{
+
+.statistic-table {
     font-size: 1.8rem;
     border-collapse: collapse;
     border: 1px solid black;
     margin: 0 auto 2rem auto;
 }
-.statistic-table th, .statistic-table td{
-/*    border-collapse: collapse;*/
+
+.statistic-table th,
+.statistic-table td {
+    /*    border-collapse: collapse;*/
     height: 3rem;
-    min-width:  15rem;
+    min-width: 15rem;
     border: 1px solid black;
 }
 
-.binary-container{
+.binary-container {
     height: 100%;
     margin-bottom: 2rem;
     overflow-x: scroll;
 }
+
 
 /*
  * -------------------------
@@ -657,6 +685,24 @@ li {
 }
 
 @media (min-width: 992px) {
+    html {
+        font-size: 10px;
+    }
+    header .container {
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: 10rem;
+        padding-right: 10rem;
+    }
+    .navbar li {
+        display: inline-block;
+    }
+    .humburger-menu {
+        display: none;
+    }
+    .menu {
+        display: block;
+    }
     .main {
         width: 82.5%;
     }
