@@ -150,6 +150,9 @@ class Hamming:
             position = np.dot(error, np.array([0, 4, 2, 1]))  # find position of error bit
             if position > 0:  # if position == 0 error was in control sum
                 code[position - 1] = (code[position - 1] + 1) % 2
+            else:
+                code[7] += 1
+                code %= 2
             return code, 1
         else:
             if np.dot(error, np.array([1, 1, 1, 1])) == 0:  # check errors of code
